@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mi Clase en la Nube - Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Bienvenida a Mi Clase en la Nube</h1>
+
+  <div id="auth-container">
+    <h2>Iniciar Sesión</h2>
+    <input type="email" id="email" placeholder="Correo" />
+    <input type="password" id="password" placeholder="Contraseña" />
+    <button onclick="login()">Entrar</button>
+    <p>¿No tienes cuenta? <a href="#" onclick="showRegister()">Regístrate aquí</a></p>
+
+    <div id="register" style="display:none;">
+      <h2>Registrarse</h2>
+      <input type="email" id="reg-email" placeholder="Correo" />
+      <input type="password" id="reg-password" placeholder="Contraseña" />
+      <button onclick="register()">Crear cuenta</button>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>
