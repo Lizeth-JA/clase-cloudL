@@ -42,5 +42,7 @@ async function login() {
   } else {
     alert("Sesión iniciada.");
     localStorage.setItem("token", data.session.access_token);
+
+     window.location.href = "dashboard.html"; //Registro Estudiantes
   }
 }
