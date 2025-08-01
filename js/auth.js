@@ -4,26 +4,37 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const link = document.getElementById("link-register");
-  link.addEventListener("click", function (e) {
-    e.preventDefault(); 
-    document.getElementById("register").style.display = "block";
-  });
-});
+function toggleForms() {
+  const loginForm = document.getElementById("login-form");
+  const registerForm = document.getElementById("register-form");
+
+  if (loginForm.style.display === "none") {
+    loginForm.style.display = "block";
+    registerForm.style.display = "none";
+  } else {
+    loginForm.style.display = "none";
+    registerForm.style.display = "block";
+  }
+}
+
 
 async function register() {
   const email = document.getElementById("reg-email").value;
   const password = document.getElementById("reg-password").value;
 
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
   if (error) {
-    alert("Error al registrarse: " + error.message);
+    alert("❌ Error: " + error.message);
   } else {
-    alert("Registro exitoso. Verifica tu correo.");
+    alert("✅ Registro exitoso. Revisa tu correo.");
+    toggleForms(); 
   }
 }
+
 
 async function login() {
   const email = document.getElementById("email").value;
@@ -35,9 +46,10 @@ async function login() {
   });
 
   if (error) {
-    alert("Error al iniciar sesión: " + error.message);
+    alert("❌ Error: " + error.message);
   } else {
-    alert("Inicio de sesión exitoso.");
+    alert("✅ Sesión iniciada.");
     localStorage.setItem("token", data.session.access_token);
+    
   }
 }
