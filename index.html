@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>Mi Clase en la Nube - Login</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <h1>Bienvenida a Mi Clase en la Nube</h1>
@@ -13,7 +14,8 @@
     <input type="email" id="email" placeholder="Correo" />
     <input type="password" id="password" placeholder="Contraseña" />
     <button onclick="login()">Entrar</button>
-    <p>¿No tienes cuenta? <a href="#" onclick="showRegister()">Regístrate aquí</a></p>
+    <p>¿No tienes cuenta? 
+        <a href="#" onclick="link-register">Regístrate aquí</a></p>
 
     <div id="register" style="display:none;">
       <h2>Registrarse</h2>

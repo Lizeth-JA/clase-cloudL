@@ -3,20 +3,25 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+
+document.addEventListener("DOMContentLoaded", () => {
+  const link = document.getElementById("link-register");
+  link.addEventListener("click", function (e) {
+    e.preventDefault(); 
+    document.getElementById("register").style.display = "block";
+  });
+});
+
 async function register() {
   const email = document.getElementById("reg-email").value;
   const password = document.getElementById("reg-password").value;
 
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
+  const { data, error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
     alert("Error al registrarse: " + error.message);
   } else {
     alert("Registro exitoso. Verifica tu correo.");
-    console.log(data);
   }
 }
 
@@ -32,9 +37,7 @@ async function login() {
   if (error) {
     alert("Error al iniciar sesión: " + error.message);
   } else {
-    alert("¡Bienvenida! Ya estás dentro.");
-    console.log(data);
-    
+    alert("Inicio de sesión exitoso.");
     localStorage.setItem("token", data.session.access_token);
   }
 }
