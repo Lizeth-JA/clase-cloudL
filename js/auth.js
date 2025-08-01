@@ -21,9 +21,9 @@ async function register() {
   });
 
   if (error) {
-    alert("❌ Error: " + error.message);
+    alert("Error: " + error.message);
   } else {
-    alert("✅ Registro exitoso. Revisa tu correo.");
+    alert("Registro exitoso. Revisa tu correo.");
     toggleForms();
   }
 }
@@ -38,9 +38,9 @@ async function login() {
   });
 
   if (error) {
-    alert("❌ Error: " + error.message);
+    alert("Error: " + error.message);
   } else {
-    alert("✅ Sesión iniciada.");
+    alert("Sesión iniciada.");
     localStorage.setItem("token", data.session.access_token);
   }
 }
