@@ -54,3 +54,16 @@ async function cargarEstudiantes() {
 }
 
 cargarEstudiantes();
+
+
+async function cerrarSesion() {
+  const { error } = await client.auth.signOut();
+
+  if (error) {
+    alert("Error al cerrar sesión: " + error.message);
+  } else {
+    localStorage.removeItem("token");
+    alert("Sesión cerrada.");
+    window.location.href = "index.html";
+  }
+}
