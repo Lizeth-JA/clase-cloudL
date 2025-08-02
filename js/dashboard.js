@@ -108,14 +108,32 @@ async function listarArchivos() {
   }
 
   data.forEach((archivo) => {
+    const publicUrl = client.storage.from("tareas").getPublicUrl(`${user.id}/${archivo.name}`).data.publicUrl;
+
     const item = document.createElement("li");
-    const url = client.storage.from("tareas").getPublicUrl(`${user.id}/${archivo.name}`).data.publicUrl;
-    item.innerHTML = `<a href="${url}" target="_blank">${archivo.name}</a>`;
+
+    const esImagen = archivo.name.match(/\.(jpg|jpeg|png|gif)$/i);
+    const esPDF = archivo.name.match(/\.pdf$/i);
+
+    if (esImagen) {
+      item.innerHTML = `
+        <strong>${archivo.name}</strong><br>
+        <a href="${publicUrl}" target="_blank">
+          <img src="${publicUrl}" width="150" style="border:1px solid #ccc; margin:5px;" />
+        </a>
+      `;
+    } else if (esPDF) {
+      item.innerHTML = `
+        <strong>${archivo.name}</strong><br>
+        <a href="${publicUrl}" target="_blank"> Ver PDF</a>
+      `;
+    } else {
+      item.innerHTML = `<a href="${publicUrl}" target="_blank">${archivo.name}</a>`;
+    }
+
     lista.appendChild(item);
   });
 }
-listarArchivos();
-
 
 
 
