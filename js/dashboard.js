@@ -90,50 +90,42 @@ async function subirArchivo() {
   }
 }
 
-async function listarArchivos() {
-  const {
-    data: { user },
-  } = await client.auth.getUser();
 
-  const { data, error } = await client.storage
+data.forEach(async (archivo) => {
+  const { data: signedUrlData, error: signedUrlError } = await client.storage
     .from("tareas")
-    .list(`${user.id}`, { limit: 20 });
+    .createSignedUrl(`${user.id}/${archivo.name}`, 60); // 60 segundos
 
-  const lista = document.getElementById("lista-archivos");
-  lista.innerHTML = "";
-
-  if (error) {
-    lista.innerHTML = "<li>Error al listar archivos</li>";
+  if (signedUrlError) {
+    console.error("Error al generar URL firmada:", signedUrlError.message);
     return;
   }
 
-  data.forEach((archivo) => {
-    const publicUrl = client.storage.from("tareas").getPublicUrl(`${user.id}/${archivo.name}`).data.publicUrl;
+  const publicUrl = signedUrlData.signedUrl;
 
-    const item = document.createElement("li");
+  const item = document.createElement("li");
 
-    const esImagen = archivo.name.match(/\.(jpg|jpeg|png|gif)$/i);
-    const esPDF = archivo.name.match(/\.pdf$/i);
+  const esImagen = archivo.name.match(/\.(jpg|jpeg|png|gif)$/i);
+  const esPDF = archivo.name.match(/\.pdf$/i);
 
-    if (esImagen) {
-      item.innerHTML = `
-        <strong>${archivo.name}</strong><br>
-        <a href="${publicUrl}" target="_blank">
-          <img src="${publicUrl}" width="150" style="border:1px solid #ccc; margin:5px;" />
-        </a>
-      `;
-    } else if (esPDF) {
-      item.innerHTML = `
-        <strong>${archivo.name}</strong><br>
-        <a href="${publicUrl}" target="_blank"> Ver PDF</a>
-      `;
-    } else {
-      item.innerHTML = `<a href="${publicUrl}" target="_blank">${archivo.name}</a>`;
-    }
+  if (esImagen) {
+    item.innerHTML = `
+      <strong>${archivo.name}</strong><br>
+      <a href="${publicUrl}" target="_blank">
+        <img src="${publicUrl}" width="150" style="border:1px solid #ccc; margin:5px;" />
+      </a>
+    `;
+  } else if (esPDF) {
+    item.innerHTML = `
+      <strong>${archivo.name}</strong><br>
+      <a href="${publicUrl}" target="_blank">Ver PDF</a>
+    `;
+  } else {
+    item.innerHTML = `<a href="${publicUrl}" target="_blank">${archivo.name}</a>`;
+  }
 
-    lista.appendChild(item);
-  });
-}
+  lista.appendChild(item);
+});
 
 
 
