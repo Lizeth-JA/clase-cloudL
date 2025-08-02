@@ -55,6 +55,69 @@ async function cargarEstudiantes() {
 
 cargarEstudiantes();
 
+async function subirArchivo() {
+  const archivoInput = document.getElementById("archivo");
+  const archivo = archivoInput.files[0];
+
+  if (!archivo) {
+    alert("Selecciona un archivo primero.");
+    return;
+  }
+
+  const {
+    data: { user },
+    error: userError,
+  } = await client.auth.getUser();
+
+  if (userError || !user) {
+    alert("Sesión no válida.");
+    return;
+  }
+
+  const nombreRuta = `${user.id}/${archivo.name}`; 
+  const { data, error } = await client.storage
+    .from("tareas") //Nombre del bucket
+    .upload(nombreRuta, archivo, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+
+  if (error) {
+    alert("Error al subir: " + error.message);
+  } else {
+    alert("Archivo subido correctamente.");
+    listarArchivos(); 
+  }
+}
+
+async function listarArchivos() {
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+
+  const { data, error } = await client.storage
+    .from("tareas")
+    .list(`${user.id}`, { limit: 20 });
+
+  const lista = document.getElementById("lista-archivos");
+  lista.innerHTML = "";
+
+  if (error) {
+    lista.innerHTML = "<li>Error al listar archivos</li>";
+    return;
+  }
+
+  data.forEach((archivo) => {
+    const item = document.createElement("li");
+    const url = client.storage.from("tareas").getPublicUrl(`${user.id}/${archivo.name}`).data.publicUrl;
+    item.innerHTML = `<a href="${url}" target="_blank">${archivo.name}</a>`;
+    lista.appendChild(item);
+  });
+}
+listarArchivos();
+
+
+
 
 async function cerrarSesion() {
   const { error } = await client.auth.signOut();
