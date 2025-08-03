@@ -149,8 +149,7 @@ async function listarArchivos() {
     lista.appendChild(item);
   });
 }
-
-
+listarArchivos();
 
 async function cerrarSesion() {
   const { error } = await client.auth.signOut();
