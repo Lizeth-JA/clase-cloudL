@@ -51,9 +51,10 @@ button:hover {
   background-color: #0c71c3;
 }
 
-.cerrar {
+.cerrar-btn {
   background-color: #e74c3c;
-  margin-bottom: 20px;
+  display: block;
+  width: 100%;
 }
 
 .cerrar:hover {
