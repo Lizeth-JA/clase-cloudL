@@ -9,6 +9,10 @@
 <body>
   <h1>Panel de Estudiantes</h1>
 
+  <div>
+    <button onclick="cerrarSesion()"class="cerrar-btn">Cerrar sesión</button>
+  </div>
+  
   <section>
     <h2>Registrar estudiantes </h2>
     <input type="text" id="nombre" placeholder="Nombre del estudiante" />
@@ -16,7 +20,9 @@
     <input type="text" id="clase" placeholder="Clase" />
     <button onclick="agregarEstudiante()">Agregar</button>
   </section>
-  
+  <h2>Listado:</h2>
+  <ul id="lista-estudiantes"></ul>
+    
   <section class="card">
     <h2>Subir archivo</h2>
     <label for="estudiante">Selecciona un estudiante:</label>
@@ -31,11 +37,8 @@
       <ul id="lista-archivos"></ul>
     </section>
 
-  <h2>Listado:</h2>
-  <ul id="lista-estudiantes"></ul>
-<div>
-<button onclick="cerrarSesion()"class="cerrar-btn">Cerrar sesión</button>
-</div>
+
+
   <script src="js/dashboard.js"></script>
 </body>
 </html>
