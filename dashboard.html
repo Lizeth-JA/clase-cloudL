@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Mis Estudiantes</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Estudiantes</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <h1>Mis Estudiantes</h1>
+  <div class="contenedor">
+    <h1>Mis Estudiantes</h1>
 
-  <div>
-    <input type="text" id="nombre" placeholder="Nombre del estudiante" />
-    <input type="text" id="correo" placeholder="Correo" />
-    <input type="text" id="clase" placeholder="Clase" />
-    <button onclick="agregarEstudiante()">Agregar</button>
-  </div>
-  <div>
-<button onclick="cerrarSesion()">Cerrar sesión</button>
-</div>
+    <form id="form-estudiante">
+      <input type="text" id="nombre" placeholder="Nombre del estudiante" required />
+      <input type="email" id="correo" placeholder="Correo" required />
+      <input type="text" id="clase" placeholder="Clase" required />
+      <button type="button" onclick="agregarEstudiante()">Agregar</button>
+    </form>
 
-  <h2>Subir archivo</h2>
+    <button class="cerrar" onclick="cerrarSesion()">Cerrar sesión</button>
+
+    <h2>Lista de Estudiantes</h2>
+    <ul id="lista-estudiantes"></ul>
+
+    <h2>Subir archivo</h2>
+    <label for="estudiante">Selecciona un estudiante:</label>
+    <select id="estudiante"></select>
+
     <input type="file" id="archivo" />
     <button onclick="subirArchivo()">Subir</button>
 
-<ul id="lista-archivos"></ul>
-
-  <h2>Listado:</h2>
-  <ul id="lista-estudiantes"></ul>
-
-  <script src="js/dashboard.js"></script>
+    <h2>Archivos Subidos</h2>
+    <ul id="lista-archivos"></ul>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="dashboard.js"></script>
 </body>
 </html>
