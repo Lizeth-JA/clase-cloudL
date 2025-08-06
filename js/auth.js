@@ -1,4 +1,4 @@
-const SUPABASE_URL = "https://qdapojtpjolrhjuutedx.supabase.co";
+const SUPABASE_URL = "https://qdapojtpjolrhjuutedx.supabase.co";  //configuración API
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkYXBvanRwam9scmhqdXV0ZWR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwMTM2MjIsImV4cCI6MjA2OTU4OTYyMn0.AgwEY0EXaWB_FZF7R4J9HLkym47Rvcm9bv15RyUTG20";
 
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -23,7 +23,7 @@ async function register() {
   if (error) {
     alert("Error: " + error.message);
   } else {
-    alert("Registro exitoso. Revisa tu correo.");
+    alert("Registro exitoso.");
     toggleForms();
   }
 }
